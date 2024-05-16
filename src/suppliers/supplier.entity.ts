@@ -7,19 +7,34 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('supplier')
 export class Supplier {
+  @ApiProperty({ example: '1', description: 'Уникальный идентификатор' })
   @PrimaryGeneratedColumn()
   id: number;
+  @ApiProperty({ example: 'Адидас', description: 'Название поставщика' })
   @Column()
   fullname: string;
+  @ApiProperty({
+    example: 'ФРГ, Мюнхен, Уберштрассе 12',
+    description: 'Адрес поставщика товара',
+  })
   @Column()
-  address: number;
+  address: string;
+  @ApiProperty({
+    example: '+6(345)445-33-11',
+    description: 'Телефон поставщика товара',
+  })
   @Column()
-  phone: number;
+  phone: string;
+  @ApiProperty({
+    example: 'sales@adidas.de',
+    description: 'Адрес эл почты поставщика товара',
+  })
   @Column()
-  email: number;
+  email: string;
 
   @ManyToMany((type) => Good, (goods) => goods.suppliers) //Создадим связь многие ко многим с сущностью article и свяжем с полем authors в статье
   @JoinTable({
@@ -29,6 +44,4 @@ export class Supplier {
     inverseJoinColumn: { name: 'good_id' }, //для связи с идентификатором товара
   })
   goods: Good[]; //объект, в котором будем автоматически получать все товары
-  static id: any;
-  rating: any;
 }

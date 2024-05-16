@@ -1,5 +1,4 @@
-export class IncompletesupplierDto {
-    id: number;
-    fullname: string;
-  }
-  
+export class IncompleteSupplierDto {
+  id: number;
+  fullname: string;
+}

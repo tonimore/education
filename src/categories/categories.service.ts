@@ -4,9 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm/repository/Repository';
 import { Supplier } from 'src/suppliers/supplier.entity';
-import { In } from 'typeorm/find-options/operator/In';
-import { CreateGoodDto } from 'src/goods/dto/good-dto';
-import { IncompleteGoodDto } from 'src/goods/dto/incomplete-good.dto';
+import { CreateCategoryDto } from 'src/categories/dto/category-dto';
 import { Good } from 'src/goods/goods.entity';
 
 @Injectable()
@@ -23,23 +21,16 @@ export class categoriesService {
   async create(categoryDto: CreateCategoryDto): Promise<Category> {
     //получаем объект CreateGoodDto
     const category = this.categoryRepository.create(); //создаем объект Author из репозитория
-    category.name = categoryDto.fullname; //заполняем поля объекта Author
-
-
-    const categories = await this.categoryRepository.findBy({
-      //получаем массив категорий по id
-      id: In(goodDto.categories),
-    });
-    categories.goods = goods;
-    await this.categoryRepository.save(category); //сохраняем объект Author в БД
-    return category; //возвращаем объект Author
+    category.name = categoryDto.name; //заполняем поля объекта Category
+    await this.categoryRepository.save(category); //сохраняем объект Category в БД
+    return category; //возвращаем объект Category
   }
 
   async findOne(id: number): Promise<Category> {
     return this.categoryRepository.findOne({
       //получаем объект Good по id
       where: { id }, //указываем условие поиска по id
-      relations: { goods: true}, //получаем связанные объекты
+      relations: { goods: true }, //получаем связанные объекты
     });
   }
 
@@ -49,7 +40,6 @@ export class categoriesService {
     }); //получаем массив Author из БД
     return categories; //возвращаем массив Good
   }
-
 
   async update(id: number, updatedCategory: Category) {
     //получаем объект Good для обновления по id

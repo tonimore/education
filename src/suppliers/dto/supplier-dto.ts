@@ -1,10 +1,26 @@
-export class CreatesupplierDto {
-    goods(goods: any): number | import("typeorm").FindOperator<number> {
-      throw new Error('Method not implemented.');
-    }
-    fullname: string;
-    address: number;
-    phone: number;
-    email: number;
-  }
-  
+import { ApiProperty } from '@nestjs/swagger';
+
+export class CreateSupplierDto {
+  @ApiProperty({ example: 'Адидас', description: 'Название поставщика товара' })
+  fullname: string;
+  @ApiProperty({
+    example: 'ФРГ, Мюнхен, Уберштрассе 12',
+    description: 'Адрес поставщика товара',
+  })
+  address: string;
+  @ApiProperty({
+    example: '+6(345)445-33-11',
+    description: 'Телефон поставщика товара',
+  })
+  phone: string;
+  @ApiProperty({
+    example: 'sales@adidas.de',
+    description: 'Адрес эл почты поставщика товара',
+  })
+  email: string;
+  @ApiProperty({
+    example: [1, 2],
+    description: 'Список идентификаторов товара',
+  })
+  goods: string[];
+}

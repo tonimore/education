@@ -1,7 +1,6 @@
 import { Good } from './goods.entity';
 import { CreateGoodDto } from './dto/good-dto';
 import { IncompleteGoodDto } from './dto/incomplete-good.dto';
-//import { DatasourceService } from 'src/datasource/datasource.service';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm/repository/Repository';
@@ -23,7 +22,7 @@ export class goodsService {
   async create(goodDto: CreateGoodDto): Promise<Good> {
     //получаем объект CreateGoodDto
     const good = this.goodRepository.create(); //создаем объект Author из репозитория
-    good.fullname = goodDto.fullname; //заполняем поля объекта Author
+    good.fullname = goodDto.fullname; //заполняем поля объекта Good
     good.rating = goodDto.rating;
 
     const categories = await this.categoryRepository.findBy({
@@ -65,7 +64,7 @@ export class goodsService {
   async update(id: number, updatedGood: Good) {
     //получаем объект Good для обновления по id
     const good = await this.goodRepository.findOne({ where: { id } }); //получаем объект Good по id из БД
-    good.fullname = updatedGood.fullname; //обновляем поля объекта Author
+    good.fullname = updatedGood.fullname; //обновляем поля объекта Good
     good.rating = updatedGood.rating;
     good.categories = updatedGood.categories;
     good.suppliers = updatedGood.suppliers;

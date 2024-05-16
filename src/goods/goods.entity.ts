@@ -8,13 +8,17 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('goods')
 export class Good {
+  @ApiProperty({ example: '1', description: 'Уникальный идентификатор' })
   @PrimaryGeneratedColumn()
   id: number;
+  @ApiProperty({ example: 'Клюшка', description: 'Название товара' })
   @Column()
   fullname: string;
+  @ApiProperty({ example: '5', description: 'Рейтинг товара' })
   @Column()
   rating: number;
   @ManyToMany((type) => Category, (categories) => categories.goods)

@@ -1,13 +1,12 @@
-import { Supplier} from './supplier.entity';
-//import { DatasourceService } from 'src/datasource/datasource.service';
+import { Supplier } from './supplier.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm/repository/Repository';
 import { Category } from 'src/categories/categories.entity';
 import { In } from 'typeorm/find-options/operator/In';
 import { Good } from 'src/goods/goods.entity';
-import { IncompletesupplierDto } from './dto/incomplete-supplier.dto';
-import { CreatesupplierDto } from './dto/supplier-dto';
+import { IncompleteSupplierDto } from './dto/incomplete-supplier.dto';
+import { CreateSupplierDto } from './dto/supplier-dto';
 
 @Injectable()
 export class suppliersService {
@@ -20,27 +19,26 @@ export class suppliersService {
     private readonly categoryRepository: Repository<Category>,
   ) {}
 
-  async create(supplierDto: CreatesupplierDto): Promise<Supplier> {
-    //получаем объект CreateGoodDto
-    const supplier = this.supplierRepository.create(); //создаем объект Author из репозитория
-    supplier.fullname = supplierDto.fullname; //заполняем поля объекта Author
+  async create(supplierDto: CreateSupplierDto): Promise<Supplier> {
+    //получаем объект CreatesupplierDto
+    const supplier = this.supplierRepository.create(); //создаем объект Supplier из репозитория
+    supplier.fullname = supplierDto.fullname; //заполняем поля объекта Supplier
     supplier.address = supplierDto.address;
     supplier.phone = supplierDto.phone;
     supplier.email = supplierDto.email;
 
     const goods = await this.goodRepository.findBy({
-      //получаем массив категорий по id
-      id: In(supplierDto.goods,
+      //получаем массив товаров по id
+      id: In(supplierDto.goods),
     });
     supplier.goods = goods;
-    await this.goodRepository.save(supplier); //сохраняем объект Author в БД
-    return supplier; //возвращаем объект Author
+    await this.goodRepository.save(supplier); //сохраняем объект Supplier в БД
+    return supplier; //возвращаем объект Supplier
   }
-
 
   async findOne(id: number): Promise<Supplier> {
     return this.supplierRepository.findOne({
-      //получаем объект Good по id
+      //получаем объект Supplier по id
       where: { id }, //указываем условие поиска по id
       relations: { goods: true }, //получаем связанные объекты
     });
@@ -49,36 +47,37 @@ export class suppliersService {
   async findAll(): Promise<Supplier[]> {
     const suppliers = await this.supplierRepository.find({
       relations: { goods: true }, //получаем связанные объекты
-    }); //получаем массив Author из БД
-    return suppliers; //возвращаем массив Good
+    }); //получаем массив Supplier из БД
+    return suppliers; //возвращаем массив Supplier
   }
 
-  async findIncomplete(): Promise<IncompletesupplierDto[]> {
-    const suppliers = await this.supplierRepository.find(); //получаем массив Good из БД
-    const incompleteSuppliers: IncompletesupplierDto[] = suppliers.map((supplier) => {
-      //преобразуем массив Good в массив IncompleteGoodDto
-      const incompleteSupplier = new IncompletesupplierDto();
-      incompleteSupplier.id = Supplier.id;
-      incompleteSupplier.fullname = supplier.fullname;
-      return incompleteSupplier;
-    });
-    return incompleteSuppliers; //возвращаем массив incompleteGoodDto
+  async findIncomplete(): Promise<IncompleteSupplierDto[]> {
+    const suppliers = await this.supplierRepository.find(); //получаем массив Supplier из БД
+    const incompleteSuppliers: IncompleteSupplierDto[] = suppliers.map(
+      (supplier) => {
+        //преобразуем массив Supplier в массив IncompleteSupplierDto
+        const incompleteSupplier = new IncompleteSupplierDto();
+        incompleteSupplier.id = supplier.id;
+        incompleteSupplier.fullname = supplier.fullname;
+        return incompleteSupplier;
+      },
+    );
+    return incompleteSuppliers; //возвращаем массив IncompleteSupplierDto
   }
 
   async update(id: number, updatedSupplier: Supplier) {
     //получаем объект Good для обновления по id
     const supplier = await this.supplierRepository.findOne({ where: { id } }); //получаем объект Good по id из БД
-    supplier.fullname = updatedSupplier.fullname; //обновляем поля объекта Author
+    supplier.fullname = updatedSupplier.fullname; //обновляем поля объекта Supplier
     supplier.address = updatedSupplier.address;
     supplier.phone = updatedSupplier.phone;
     supplier.email = updatedSupplier.email;
     supplier.goods = updatedSupplier.goods;
-
-    await this.supplierRepository.save(supplier); //сохраняем объект Good в БД
-    return supplier; //возвращаем объект Good
+    await this.supplierRepository.save(supplier); //сохраняем объект Supplier в БД
+    return supplier; //возвращаем объект Supplier
   }
 
   remove(id: number) {
-    this.supplierRepository.delete({ id }); //удаляем объект Good из БД
+    this.supplierRepository.delete({ id }); //удаляем объект Supplier из БД
   }
 }
