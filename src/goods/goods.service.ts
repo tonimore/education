@@ -1,10 +1,10 @@
-import { goods } from './goods.entity';
+import { Good } from './goods.entity';
 import { DatasourceService } from 'src/datasource/datasource.service';
 import { Injectable, HttpStatus, NotFoundException } from '@nestjs/common';
 @Injectable()
 export class goodsService {
   constructor(private readonly datasourceService: DatasourceService) {}
-  create(goods: goods) {
+  create(goods: Good) {
     this.datasourceService.getgoods().push(goods);
     return goods;
   }
@@ -16,10 +16,10 @@ export class goodsService {
     if (obj === undefined) throw new NotFoundException('Object Not Found');
     return obj;
   }
-  findAll(): goods[] {
+  findAll(): Good[] {
     return this.datasourceService.getgoods();
   }
-  update(id: number, updatedgoods: goods) {
+  update(id: number, updatedgoods: Good) {
     const index = this.datasourceService
       .getgoods()
       .findIndex((goods) => goods.id === id);

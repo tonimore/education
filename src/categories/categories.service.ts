@@ -1,10 +1,10 @@
-import { categories } from './categories.entity';
+import { Category } from './categories.entity';
 import { DatasourceService } from 'src/datasource/datasource.service';
 import { Injectable, HttpStatus, NotFoundException } from '@nestjs/common';
 @Injectable()
 export class categoriesService {
   constructor(private readonly datasourceService: DatasourceService) {}
-  create(categories: categories) {
+  create(categories: Category) {
     this.datasourceService.getcategories().push(categories);
 
     return categories;
@@ -18,11 +18,11 @@ export class categoriesService {
     return obj;
   }
 
-  findAll(): categories[] {
+  findAll(): Category[] {
     return this.datasourceService.getcategories();
   }
 
-  update(id: number, updatedcategories: categories) {
+  update(id: number, updatedcategories: Category) {
     const index = this.datasourceService
       .getcategories()
       .findIndex((categories) => categories.id === id);

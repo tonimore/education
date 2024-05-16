@@ -1,4 +1,4 @@
-export class goods {
+export class Good {
   id: number;
   fullname: string;
   category_id: number;

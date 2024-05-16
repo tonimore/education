@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { categoriesService } from './categories.service';
-import { categories } from './categories.entity';
+import { Category } from './categories.entity';
 import {
   Controller,
   Get,
@@ -23,11 +23,11 @@ export class categoriesController {
     return this.categoriesService.findOne(+id);
   }
   @Put(':id')
-  update(@Param('id') id: string, @Body() updatecategories: categories) {
+  update(@Param('id') id: string, @Body() updatecategories: Category) {
     return this.categoriesService.update(+id, updatecategories);
   }
   @Post()
-  create(@Body() createcategories: categories) {
+  create(@Body() createcategories: Category) {
     return this.categoriesService.create(createcategories);
   }
   @Delete(':id')

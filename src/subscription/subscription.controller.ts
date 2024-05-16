@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { subscriptionService } from './subscription.service';
-import { subscription } from './subscription.entity';
+import { Subscription } from './subscription.entity';
 import {
   Controller,
   Get,
@@ -23,11 +23,11 @@ export class subscriptionController {
     return this.subscriptionService.findOne(+id);
   }
   @Put(':id')
-  update(@Param('id') id: string, @Body() updatesubscription: subscription) {
+  update(@Param('id') id: string, @Body() updatesubscription: Subscription) {
     return this.subscriptionService.update(+id, updatesubscription);
   }
   @Post()
-  create(@Body() createsubscription: subscription) {
+  create(@Body() createsubscription: Subscription) {
     return this.subscriptionService.create(createsubscription);
   }
   @Delete(':id')
