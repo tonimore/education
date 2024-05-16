@@ -35,7 +35,7 @@ $ npm install
 ## Run DB
 
 ```
-docker run --name postgres -e POSTGRES_USER=dbuser -e POSTGRES_PASSWORD=123 -e POSTGRES_DB=education -d -p 5432:5432 postgres
+docker run --name postgres -e POSTGRES_USER=education -e POSTGRES_PASSWORD=123 -e POSTGRES_DB=education -d -p 5432:5432 postgres
 ```
 
 ## Running the app
@@ -43,6 +43,7 @@ docker run --name postgres -e POSTGRES_USER=dbuser -e POSTGRES_PASSWORD=123 -e P
 ```bash
 # development
 $ npm run start
+$ npm run start:debug
 
 # watch mode
 $ npm run start:dev
@@ -53,7 +54,7 @@ $ npm run start:prod
 
 ## Check the API Docs
 
-http://localhost:3001/api_docs
+http://localhos:t3001/api_docs
 
 
 ## Test
