@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { supplierService } from './supplier.service';
+import { suppliersService} from './supplier.service';
 import { Supplier } from './supplier.entity';
 import {
   Controller,
@@ -11,27 +11,33 @@ import {
   Post,
 } from '@nestjs/common';
 
-@Controller('supplier')
-export class supplierController {
-  constructor(private readonly supplierService: supplierService) {}
+@Controller('suppliers')
+export class suppliersController {
+  suppliersServiceService: any;
+  constructor(private readonly suppliersService: suppliersService) {}
   @Get()
   findAll() {
-    return this.supplierService.findAll();
+    return this.suppliersService.findAll();
   }
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.supplierService.findOne(+id);
+    return this.suppliersService.findOne(+id);
   }
   @Put(':id')
   update(@Param('id') id: string, @Body() updatesupplier: Supplier) {
-    return this.supplierService.update(+id, updatesupplier);
+    return this.suppliersService.update(+id, updatesupplier);
   }
   @Post()
-  create(@Body() createsupplier: Supplier) {
-    return this.supplierService.create(createsupplier);
+  create(@Body() createsuppliers: Supplier) {
+    return this.suppliersService.create(createsuppliers);
   }
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.supplierService.remove(+id);
+    return this.suppliersService.remove(+id);
+  }
+
+  @Get('incomplete')
+  findIncomplete() {
+    this.suppliersService.findIncomplete();
   }
 }

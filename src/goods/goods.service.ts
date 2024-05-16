@@ -56,7 +56,7 @@ export class goodsService {
       //преобразуем массив Good в массив IncompleteGoodDto
       const incompleteGood = new IncompleteGoodDto();
       incompleteGood.id = good.id;
-      incompleteGood.fullName = good.fullname;
+      incompleteGood.fullname = good.fullname;
       return incompleteGood;
     });
     return incompleteGoods; //возвращаем массив incompleteGoodDto

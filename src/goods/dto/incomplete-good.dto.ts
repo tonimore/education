@@ -1,4 +1,4 @@
 export class IncompleteGoodDto {
   id: number;
-  fullName: string;
+  fullname: string;
 }

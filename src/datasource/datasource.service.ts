@@ -7,7 +7,7 @@ import { Supplier } from 'src/suppliers/supplier.entity';
 export class DatasourceService {
   private categories: Category[] = [];
   private goods: Good[] = [];
-  private subscription: Supplier[] = [];
+  private suppliers: Supplier[];
 
   getcategories(): Category[] {
     return this.categories;
@@ -17,7 +17,7 @@ export class DatasourceService {
     return this.goods;
   }
 
-  getsupplier(): Supplier[] {
-    return this.subscription;
+  getsuppliers(): Supplier[] {
+    return this.suppliers;
   }
 }

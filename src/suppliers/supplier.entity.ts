@@ -29,4 +29,6 @@ export class Supplier {
     inverseJoinColumn: { name: 'good_id' }, //для связи с идентификатором товара
   })
   goods: Good[]; //объект, в котором будем автоматически получать все товары
+  static id: any;
+  rating: any;
 }
