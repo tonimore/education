@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { goodsService } from './goods.service';
 import { Good } from './goods.entity';
+import { CreateGoodDto } from './dto/good-dto';
 import {
   Controller,
   Get,
@@ -22,9 +23,9 @@ export class goodsController {
   findOne(@Param('id') id: string) {
     return this.goodsService.findOne(+id);
   }
-  @Get('catid/:id')
-  findByCat(@Param('id') id: string) {
-    return this.goodsService.filterByCategory(+id);
+  @Get('incomplete')
+  findIncomplete() {
+    this.goodsService.findIncomplete();
   }
   @Get(':id')
   findByCategory(@Param('id') id: string) {
@@ -35,7 +36,7 @@ export class goodsController {
     return this.goodsService.update(+id, updategoods);
   }
   @Post()
-  create(@Body() creategoods: Good) {
+  create(@Body() creategoods: CreateGoodDto) {
     return this.goodsService.create(creategoods);
   }
   @Delete(':id')

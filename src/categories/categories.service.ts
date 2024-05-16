@@ -1,6 +1,8 @@
 import { Category } from './categories.entity';
 import { DatasourceService } from 'src/datasource/datasource.service';
 import { Injectable, HttpStatus, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+
 @Injectable()
 export class categoriesService {
   constructor(private readonly datasourceService: DatasourceService) {}
