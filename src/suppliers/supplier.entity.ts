@@ -36,12 +36,7 @@ export class Supplier {
   @Column()
   email: string;
 
-  @ManyToMany((type) => Good, (goods) => goods.suppliers) //Создадим связь многие ко многим с сущностью article и свяжем с полем authors в статье
-  @JoinTable({
-    //join таблица с названием category_good
-    name: 'supplier_good',
-    joinColumn: { name: 'supplier_id' }, //для связи с идентификатором поставщиа
-    inverseJoinColumn: { name: 'good_id' }, //для связи с идентификатором товара
-  })
+  @ManyToMany(() => Good, (good) => good.suppliers) //Создадим связь многие ко многим с сущностью article и свяжем с полем authors в статье
+  @JoinTable()
   goods: Good[]; //объект, в котором будем автоматически получать все товары
 }

@@ -15,24 +15,20 @@ export class Good {
   @ApiProperty({ example: '1', description: 'Уникальный идентификатор' })
   @PrimaryGeneratedColumn()
   id: number;
+
   @ApiProperty({ example: 'Клюшка', description: 'Название товара' })
   @Column()
   fullname: string;
+
   @ApiProperty({ example: '5', description: 'Рейтинг товара' })
   @Column()
   rating: number;
-  @ManyToMany((type) => Category, (categories) => categories.goods)
-  @JoinTable({
-    name: 'category_good',
-    joinColumn: { name: 'good_id' },
-    inverseJoinColumn: { name: 'category_id' },
-  })
-  @ManyToMany((type) => Supplier, (suppliers) => suppliers.goods)
-  @JoinTable({
-    name: 'supplier_good',
-    joinColumn: { name: 'good_id' },
-    inverseJoinColumn: { name: 'supplier_id' },
-  })
+
+  @ManyToMany(() => Category, (category) => category.goods)
+  @JoinTable()
   categories: Category[];
+
+  @ManyToMany(() => Supplier, (supplier) => supplier.goods)
+  @JoinTable()
   suppliers: Supplier[];
 }
