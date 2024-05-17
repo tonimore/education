@@ -32,7 +32,7 @@ export class suppliersService {
       id: In(supplierDto.goods),
     });
     supplier.goods = goods;
-    await this.goodRepository.save(supplier); //сохраняем объект Supplier в БД
+    await this.supplierRepository.save(supplier); //сохраняем объект Supplier в БД
     return supplier; //возвращаем объект Supplier
   }
 
